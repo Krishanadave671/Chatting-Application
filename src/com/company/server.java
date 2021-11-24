@@ -13,7 +13,7 @@ public class server extends JFrame {
         p1.setBounds(0,0,350,50);
         add(p1);
 
-
+//krishana
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/3.png"));
         Image i2 = i1.getImage().getScaledInstance(25,30 , Image.SCALE_DEFAULT);
@@ -69,7 +69,7 @@ public class server extends JFrame {
         setSize(300,500);
         setLocation(750,100);
         setVisible(true);
-
+        // prajwal did cg project
 
     }
 
