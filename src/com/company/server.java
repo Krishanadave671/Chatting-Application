@@ -69,7 +69,7 @@ public class server extends JFrame {
         setSize(300,500);
         setLocation(750,100);
         setVisible(true);
-
+        // prajwal did cg project
 
     }
 
