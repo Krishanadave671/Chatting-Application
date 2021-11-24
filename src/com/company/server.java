@@ -70,7 +70,7 @@ public class server extends JFrame {
         setLocation(750,100);
         setVisible(true);
         // prajwal did cg project
-
+// ayush and krishana are working on oop
     }
 
     public static void main(String[] args) {
