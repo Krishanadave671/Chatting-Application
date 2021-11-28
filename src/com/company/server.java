@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class server extends JFrame {
+public class server extends JFrame implements ActionListener{
     JPanel p1;
+    JTextField t1;
+    JButton b1;
     server() {
 
         p1 = new JPanel();
@@ -70,11 +72,28 @@ public class server extends JFrame {
         l7.setBounds(278,13,10,20);
         p1.add(l7);
 
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        t1 = new JTextField();
+        t1.setBounds(5,480,230,26);
+        t1.setFont(new Font("SANS_SERIF", Font.PLAIN,15));
+        add(t1);
+
+        b1= new JButton("Send");
+        b1.setBounds(240,480,72,26);
+        b1.setBackground(new Color(7,94,84));
+        b1.setForeground(Color.WHITE);
+        b1.setFont(new Font("SANS_SERIF", Font.PLAIN,13));
+        add(b1);
+
+        //getContentPane().setBackground(Color.LIGHT_GRAY);
         setLayout(null);
-        setSize(320,500);
-        setLocation(750,100);
+        setSize(320,510);
+        setLocation(350,100);
+        setUndecorated(true);
         setVisible(true);
+
+    }
+
+    public void actionPerformed(ActionEvent ae) {
 
     }
 
@@ -83,4 +102,3 @@ public class server extends JFrame {
 
     }
 }
-//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
