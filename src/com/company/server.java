@@ -3,12 +3,19 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.net.*;
 
 public class server extends JFrame implements ActionListener{
     JPanel p1;
     JTextField t1;
     JButton b1;
-    JTextArea a1;
+    static JTextArea a1;
+
+    static ServerSocket skt;
+    static Socket s;
+    static DataInputStream din;
+    static DataOutputStream dout;
 
     server() {
 
@@ -106,13 +113,36 @@ public class server extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
-        String out = t1.getText();
-        a1.setText(a1.getText()+"\n\t\t"+out);
-        t1.setText("");
+
+        try {
+            String out = t1.getText();
+            a1.setText(a1.getText() + "\n\t\t" + out);
+            dout.writeUTF(out);
+            t1.setText("");
+        }catch (Exception e){
+
+        }
     }
 
     public static void main(String[] args) {
         new server().setVisible(true);
+
+        String msgInput="";
+
+        try{
+            skt = new ServerSocket(6001);
+            while (true){
+            s = skt.accept();
+            din = new DataInputStream(s.getInputStream());
+            dout = new DataOutputStream(s.getOutputStream());
+
+            while (true) {
+                msgInput = din.readUTF();
+                a1.setText(a1.getText() + "\n" + msgInput);
+
+            }}
+
+        }catch (Exception e){}
 
     }
 }
