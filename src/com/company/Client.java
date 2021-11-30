@@ -115,7 +115,7 @@ public class Client extends JFrame implements ActionListener{
 
         try {
             String out = t1.getText();
-            a1.setText(a1.getText() + "\n\t\t" + out);
+            a1.setText(a1.getText()+"\n\t\t"+out);
             dout.writeUTF(out);
             t1.setText("");
         }catch (Exception e){
@@ -133,7 +133,7 @@ public class Client extends JFrame implements ActionListener{
             String msgInput = "";
             while (true){
                 msgInput = din.readUTF();
-            a1.setText(a1.getText() + "\n" + msgInput);
+            a1.setText(a1.getText()+"\n"+msgInput);
         }
 
         }catch (Exception e){};

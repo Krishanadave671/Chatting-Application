@@ -10,7 +10,7 @@ public class server extends JFrame implements ActionListener{
     JPanel p1;
     JTextField t1;
     JButton b1;
-    static JTextArea a1;
+    static JPanel a1;
 
     static ServerSocket skt;
     static Socket s;
@@ -81,13 +81,11 @@ public class server extends JFrame implements ActionListener{
         l7.setBounds(298,13,10,20);
         p1.add(l7);
 
-        a1= new JTextArea();
+        a1= new JPanel();
         a1.setBounds(5,55,310,420);
         //a1.setBackground(Color.lightGray);
         a1.setFont(new Font("SANS_SERIF", Font.PLAIN,16));
-        a1.setEditable(false);
-        a1.setLineWrap(true);
-        a1.setWrapStyleWord(true);
+
         add(a1);
 
         t1 = new JTextField();
@@ -116,12 +114,24 @@ public class server extends JFrame implements ActionListener{
 
         try {
             String out = t1.getText();
-            a1.setText(a1.getText() + "\n\t\t" + out);
+
+            JPanel p2 = formatLabel(out);
+
+            a1.add(p2);
             dout.writeUTF(out);
             t1.setText("");
         }catch (Exception e){
 
         }
+    }
+
+    public JPanel formatLabel(String out){
+        JPanel p3 = new JPanel();
+
+        JLabel l1 = new JLabel(out);
+
+        p3.add(l1);
+        return p3;
     }
 
     public static void main(String[] args) {
@@ -138,7 +148,7 @@ public class server extends JFrame implements ActionListener{
 
             while (true) {
                 msgInput = din.readUTF();
-                a1.setText(a1.getText() + "\n" + msgInput);
+
 
             }}
 
