@@ -1,29 +1,38 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
-public class server extends JFrame implements ActionListener{
+public class server implements ActionListener{
     JPanel p1;
     JTextField t1;
     JButton b1;
     static JPanel a1;
+    static JFrame f1 = new JFrame();
+
+    static Box vertical = Box.createVerticalBox();
 
     static ServerSocket skt;
     static Socket s;
     static DataInputStream din;
     static DataOutputStream dout;
 
+    boolean typing;
+
     server() {
+        f1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         p1 = new JPanel();
         p1.setLayout(null);
         p1.setBackground(new Color(7,94,84));
         p1.setBounds(0,0,355,50);
-        add(p1);
+        f1.add(p1);
 
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/3.png"));
@@ -59,6 +68,18 @@ public class server extends JFrame implements ActionListener{
          l4.setForeground(Color.white);
          p1.add(l4);
 
+         Timer t = new Timer(1, new ActionListener() {
+
+             public void actionPerformed(ActionEvent ae) {
+                 if(!typing){
+                     l4.setText("online");
+
+                 }
+
+             }
+         });
+         t.setInitialDelay(1000);
+
         ImageIcon i7 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/video.png"));
         Image i8 = i7.getImage().getScaledInstance(22,25 , Image.SCALE_DEFAULT);
         ImageIcon i9 = new ImageIcon(i8);
@@ -86,12 +107,29 @@ public class server extends JFrame implements ActionListener{
         //a1.setBackground(Color.lightGray);
         a1.setFont(new Font("SANS_SERIF", Font.PLAIN,16));
 
-        add(a1);
+        f1.add(a1);
 
         t1 = new JTextField();
         t1.setBounds(5,480,230,26);
         t1.setFont(new Font("SANS_SERIF", Font.PLAIN,15));
-        add(t1);
+        f1.add(t1);
+
+        t1.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke){
+                l4.setText("Online...");
+
+                t.stop();
+                typing=true;
+            }
+
+            public void keyReleased(KeyEvent ke){
+                typing=false;
+                        if(!t.isRunning()){
+                            t.start();
+
+                        }
+            }
+        });
 
         b1= new JButton("Send");
         b1.setBounds(240,480,72,26);
@@ -99,15 +137,14 @@ public class server extends JFrame implements ActionListener{
         b1.setForeground(Color.WHITE);
         b1.setFont(new Font("SANS_SERIF", Font.PLAIN,13));
         b1.addActionListener(this);
-        add(b1);
+        f1.add(b1);
 
-        getContentPane().setBackground(Color.WHITE);
-        setLayout(null);
-        setSize(320,510);
-        setLocation(350,100);
-        setUndecorated(true);
-        setVisible(true);
-
+        f1.getContentPane().setBackground(Color.WHITE);
+        f1.setLayout(null);
+        f1.setSize(320,510);
+        f1.setLocation(350,100);
+        f1.setUndecorated(true);
+        f1.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -117,7 +154,15 @@ public class server extends JFrame implements ActionListener{
 
             JPanel p2 = formatLabel(out);
 
-            a1.add(p2);
+            a1.setLayout(new BorderLayout());
+
+            JPanel right = new JPanel(new BorderLayout());
+            right.add(p2, BorderLayout.LINE_END);
+            vertical.add(right);
+            vertical.add(Box.createVerticalStrut(15));
+            a1.add(vertical, BorderLayout.PAGE_START);
+
+            //a1.add(p2);
             dout.writeUTF(out);
             t1.setText("");
         }catch (Exception e){
@@ -125,22 +170,36 @@ public class server extends JFrame implements ActionListener{
         }
     }
 
-    public JPanel formatLabel(String out){
+    public static JPanel formatLabel(String out){
         JPanel p3 = new JPanel();
+        p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
 
-        JLabel l1 = new JLabel(out);
+        JLabel l1 = new JLabel("<html><p style = \"width : 105px\">"+out+"</p></html>");
+        f1.setFont(new Font("DIALOG", Font.BOLD,22));
+        l1.setBackground(new Color(37,211,102));
+        l1.setOpaque(true);
+        l1.setBorder(new EmptyBorder(10,10,10,50));
+
+        Calendar cal= Calendar.getInstance();
+        SimpleDateFormat sdf= new SimpleDateFormat("HH:mm");
+
+        JLabel l2= new JLabel();
+        l2.setText(sdf.format(cal.getTime()));
+        l2.setFont(new Font("DIALOG", Font.BOLD,11));
+
 
         p3.add(l1);
+        p3.add(l2);
         return p3;
     }
 
     public static void main(String[] args) {
-        new server().setVisible(true);
+        new server().f1.setVisible(true);
 
         String msgInput="";
 
         try{
-            skt = new ServerSocket(6001);
+            skt = new ServerSocket(6002);
             while (true){
             s = skt.accept();
             din = new DataInputStream(s.getInputStream());
@@ -148,6 +207,12 @@ public class server extends JFrame implements ActionListener{
 
             while (true) {
                 msgInput = din.readUTF();
+                JPanel p2= formatLabel(msgInput);
+                JPanel left = new JPanel(new BorderLayout());
+                left.add(p2, BorderLayout.LINE_START);
+                vertical.add(left);
+                f1.validate();
+                vertical.add(Box.createVerticalStrut(13));
 
 
             }}
