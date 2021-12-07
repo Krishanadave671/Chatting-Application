@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.plaf.ScrollBarUI;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.*;;
 import java.io.*;
@@ -30,8 +32,8 @@ public class Client implements ActionListener{
 
         p1 = new JPanel();
         p1.setLayout(null);
-        p1.setBackground(new Color(7,94,84));
-        p1.setBounds(0,0,355,50);
+        p1.setBackground(new Color(69, 122, 128));
+        p1.setBounds(0,0,330,53);
         f1.add(p1);
 
 
@@ -39,7 +41,7 @@ public class Client implements ActionListener{
         Image i2 = i1.getImage().getScaledInstance(24,20 , Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
         JLabel l1 = new JLabel(i3);
-        l1.setBounds(5,10,30,30);
+        l1.setBounds(5,11,30,30);
         p1.add(l1);
 
         l1.addMouseListener(new MouseAdapter() {
@@ -50,21 +52,43 @@ public class Client implements ActionListener{
 
 
         ImageIcon i4 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/2.png"));
-        Image i5 = i4.getImage().getScaledInstance(40,40 , Image.SCALE_DEFAULT);
+        Image i5 = i4.getImage().getScaledInstance(42,42 , Image.SCALE_DEFAULT);
         ImageIcon i6 = new ImageIcon(i5);
         JLabel l2 = new JLabel(i6);
-        l2.setBounds(37,5,40,40);
+        l2.setBounds(37,6,42,42);
         p1.add(l2);
+
+        ImageIcon i7 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/video.png"));
+        Image i8 = i7.getImage().getScaledInstance(22,25 , Image.SCALE_DEFAULT);
+        ImageIcon i9 = new ImageIcon(i8);
+        JLabel l5 = new JLabel(i9);
+        l5.setBounds(260,10,30,30);
+        p1.add(l5);
+
+
+        ImageIcon i10 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/phone.png"));
+        Image i11 = i10.getImage().getScaledInstance(25,27 , Image.SCALE_DEFAULT);
+        ImageIcon i12 = new ImageIcon(i11);
+        JLabel l6 = new JLabel(i12);
+        l6.setBounds(220,12,30,30);
+        p1.add(l6);
+
+        ImageIcon i13 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/3icon.png"));
+        Image i14 = i13.getImage().getScaledInstance(8,20 , Image.SCALE_DEFAULT);
+        ImageIcon i15 = new ImageIcon(i14);
+        JLabel l7 = new JLabel(i15);
+        l7.setBounds(304,16,10,20);
+        p1.add(l7);
 
         JLabel l3 = new JLabel("Buntyy");
         l3.setFont(new Font("SAN_SERIF",Font.BOLD,16));
-        l3.setBounds(83,5,150,20);
+        l3.setBounds(87,6,150,20);
         l3.setForeground(Color.white);
         p1.add(l3);
 
         JLabel l4 = new JLabel("online");
         l4.setFont(new Font("SAN_SERIF",Font.PLAIN,12));
-        l4.setBounds(83,25,150,20);
+        l4.setBounds(87,27,150,20);
         l4.setForeground(Color.white);
         p1.add(l4);
 
@@ -80,37 +104,40 @@ public class Client implements ActionListener{
         });
         t.setInitialDelay(1000);
 
-        ImageIcon i7 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/video.png"));
-        Image i8 = i7.getImage().getScaledInstance(22,25 , Image.SCALE_DEFAULT);
-        ImageIcon i9 = new ImageIcon(i8);
-        JLabel l5 = new JLabel(i9);
-        l5.setBounds(255,8,30,30);
-        p1.add(l5);
-
-
-        ImageIcon i10 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/phone.png"));
-        Image i11 = i10.getImage().getScaledInstance(25,27 , Image.SCALE_DEFAULT);
-        ImageIcon i12 = new ImageIcon(i11);
-        JLabel l6 = new JLabel(i12);
-        l6.setBounds(215,10,30,30);
-        p1.add(l6);
-
-        ImageIcon i13 = new ImageIcon(ClassLoader.getSystemResource("com/company/icons/3icon.png"));
-        Image i14 = i13.getImage().getScaledInstance(8,20 , Image.SCALE_DEFAULT);
-        ImageIcon i15 = new ImageIcon(i14);
-        JLabel l7 = new JLabel(i15);
-        l7.setBounds(298,13,10,20);
-        p1.add(l7);
 
         a1= new JPanel();
-        a1.setBounds(5,55,310,420);
+        //a1.setBounds(5,58,320,434);
         //a1.setBackground(Color.lightGray);
         a1.setFont(new Font("SANS_SERIF", Font.PLAIN,16));
 
-        f1.add(a1);
+        //f1.add(a1);
+
+        JScrollPane sp= new JScrollPane(a1);
+        sp.setBounds(4,57,324,438);
+        sp.setBorder(BorderFactory.createEmptyBorder());
+
+        ScrollBarUI ui = new BasicScrollBarUI(){
+
+            protected JButton createDecreaseButton(int orientation){
+                JButton button = super.createDecreaseButton(orientation);
+                button.setBackground(new Color(69, 122, 128));
+                button.setForeground(Color.WHITE);
+                this.thumbColor= new Color(69,122,128);
+                return button;
+            }
+            protected JButton createIncreaseButton(int orientation){
+                JButton button = super.createIncreaseButton(orientation);
+                button.setBackground(new Color(69, 122, 128));
+                button.setForeground(Color.WHITE);
+                this.thumbColor= new Color(69,122,128);
+                return button;
+            }
+        };
+        sp.getVerticalScrollBar().setUI(ui);
+        f1.add(sp);
 
         t1 = new JTextField();
-        t1.setBounds(5,480,230,26);
+        t1.setBounds(5,498,239,26);
         t1.setFont(new Font("SANS_SERIF", Font.PLAIN,15));
         f1.add(t1);
 
@@ -132,8 +159,8 @@ public class Client implements ActionListener{
         });
 
         b1= new JButton("Send");
-        b1.setBounds(240,480,72,26);
-        b1.setBackground(new Color(7,94,84));
+        b1.setBounds(250,498,72,26);
+        b1.setBackground(new Color(69, 122, 128));
         b1.setForeground(Color.WHITE);
         b1.setFont(new Font("SANS_SERIF", Font.PLAIN,13));
         b1.addActionListener(this);
@@ -141,7 +168,7 @@ public class Client implements ActionListener{
 
         f1.getContentPane().setBackground(Color.WHITE);
         f1.setLayout(null);
-        f1.setSize(320,510);
+        f1.setSize(330,530);
         f1.setLocation(750,100);
         f1.setUndecorated(true);
         f1.setVisible(true);
@@ -168,7 +195,7 @@ public class Client implements ActionListener{
             dout.writeUTF(out);
             t1.setText("");
         }catch (Exception e){
-
+            System.out.println(e);
         };
     }
 
@@ -177,7 +204,7 @@ public class Client implements ActionListener{
         p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
 
         JLabel l1 = new JLabel("<html><p style = \"width : 105px\">"+out+"</p></html>");
-        f1.setFont(new Font("DIALOG", Font.BOLD,22));
+        l1.setFont(new Font("DIALOG", Font.BOLD,16));
         l1.setBackground(new Color(37,211,102));
         l1.setOpaque(true);
         l1.setBorder(new EmptyBorder(10,10,10,50));
@@ -209,8 +236,9 @@ public class Client implements ActionListener{
                 JPanel left = new JPanel(new BorderLayout());
                 left.add(p2, BorderLayout.LINE_START);
                 vertical.add(left);
-                f1.validate();
                 vertical.add(Box.createVerticalStrut(13));
+                a1.add(vertical, BorderLayout.PAGE_START);
+                f1.validate();
 
         }
 
