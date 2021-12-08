@@ -179,7 +179,7 @@ public class server implements ActionListener{
 
         try {
             String out = t1.getText();
-
+            sendTextToFile(out);
             JPanel p2 = formatLabel(out);
 
             a1.setLayout(new BorderLayout());
@@ -195,6 +195,15 @@ public class server implements ActionListener{
             t1.setText("");
         }catch (Exception e){
             System.out.println(e);
+        }
+    }
+
+    public void sendTextToFile(String message) throws FileNotFoundException{
+        try(FileWriter f = new FileWriter("chat.txt",true);
+            PrintWriter p = new PrintWriter(new BufferedWriter(f));){
+            p.println("Pemao: "+message);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

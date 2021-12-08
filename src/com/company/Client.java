@@ -179,7 +179,7 @@ public class Client implements ActionListener{
 
         try {
             String out = t1.getText();
-
+            sendTextToFile(out);
             JPanel p2 = formatLabel(out);
 
             a1.setLayout(new BorderLayout());
@@ -197,6 +197,15 @@ public class Client implements ActionListener{
         }catch (Exception e){
             System.out.println(e);
         };
+    }
+
+    public void sendTextToFile(String message) throws FileNotFoundException{
+        try(FileWriter f = new FileWriter("chat.txt",true);
+            PrintWriter p = new PrintWriter(new BufferedWriter(f));){
+            p.println("Bunty: "+message);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static JPanel formatLabel(String out){
